@@ -3,18 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 15:07:16 by aletude-          #+#    #+#             */
-/*   Updated: 2026/01/13 10:49:24 by aletude-         ###   ########.fr       */
+/*   Updated: 2026/01/13 21:49:30 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# define _GNU_SOURCE
+
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <errno.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <dirent.h>
+# include <signal.h>
+# include <sys/wait.h>
+# include <sys/time.h>
+# include <sys/resource.h>
+# include <sys/ioctl.h>
+# include <termios.h>
+# include <curses.h>
+# include <term.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdbool.h>
+
 # include "structs.h"
 # include "../libft/libft.h"
+
+// Retorno de função
+# define SUCCESS 0
+# define ERROR 1
+
+// Boleanos
+# define TRUE 1
+# define FALSE 0
+
+// FD padrão
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+
+// CMD saida bash
+# define EXIT_CMD_NOT_FOUND 127 // Comando não encontrado
+# define EXIT_CMD_NOT_EXEC 126 // Permissão negada
+# define EXIT_SYNTAX_ERROR 2 // Erro de sintaxe
+# define EXIT_SIGINT 130 // Interrompido por Ctrl+C
+
+// Mensagens de Erro Padrão
+# define ERR_PREFIX "minishell: "
+# define ERR_SYNTAX "syntax error near unexpected token"
+# define ERR_QUOTE "unexpected EOF while looking for matching quote"
+// Cores
+# define RED "\033[1;31m"
+# define GREEN "\033[1;32m"
+# define YELLOW "\033[1;33m"
+# define BLUE "\033[1;34m"
+# define RESET "\033[0m"
+
+// variavel global
+extern int g_signal_status;
 
 //token_list.c
 t_token	*new_token(char *content, t_token_type type, t_quote quote);
@@ -33,5 +89,22 @@ int		tokenize_input(t_mini *mini, char *input);
 
 //syntax.c
 int		check_syntax(t_token *tokens);
+
+// env_init.c
+void	init_env(t_mini *mini, char **envp);
+
+//env_utils.c
+char	*get_env_value(t_env *env_list, char *key);
+
+//expander_utils.c
+int		get_var_len(char *str);
+char	*get_token_value(t_mini *mini, char *var_name);
+
+//expander.c
+void	expand_variables(t_mini *mini);
+
+//quote_remover.c
+void	remove_quotes(t_mini *mini);
+
 
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+         #
+#    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/09 15:06:27 by aletude-          #+#    #+#              #
-#    Updated: 2026/01/09 15:07:38 by aletude-         ###   ########.fr        #
+#    Updated: 2026/01/13 22:13:59 by alessandro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,16 +17,28 @@ INCLUDES	= -I includes -I libft
 
 LIBFT_DIR	= libft
 LIBFT		= $(LIBFT_DIR)/libft.a
-LIBFT_FLAGS	= -L$(LIBFT_DIR) -lft
+LIBFT_FLAGS	= -L$(LIBFT_DIR) -lft -lreadline
 
-SRC_DIR		=	srcs
+SRC_DIR		=	src
 OBJ_DIR		=	objs
 SRC_FILES	= main.c \
-			
+			env/env_init.c \
+			env/env_utils.c \
+			parser/create_cmds.c \
+			parser/expander_utils.c \
+			parser/expander.c \
+			parser/lexer_utils.c \
+			parser/lexer.c \
+			parser/parser_manager.c \
+			parser/quote_remover.c \
+			parser/syntax.c \
+			parser/token_list.c \
+			signals/signals.c \
+
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS		= $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
-DEPS		= includes/minishell.h
+DEPS		= includes/minishell.h includes/structs.h
 
 all: $(LIBFT) $(NAME)
 
@@ -35,6 +47,7 @@ $(LIBFT):
 
 $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_FLAGS) -o $(NAME)
+	@echo "Minishell compiled successfully!"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(DEPS)
 		@mkdir -p $(dir $@)

@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 14:55:00 by aletude-          #+#    #+#             */
-/*   Updated: 2026/01/09 15:05:32 by aletude-         ###   ########.fr       */
+/*   Updated: 2026/01/13 20:47:47 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
-
-# include <stdbool.h> 
-
+/*******ENUMS ********/
 // Enum para facilitar a leitura do tipo de token.
 typedef enum e_token_type
 {
@@ -26,7 +24,7 @@ typedef enum e_token_type
 	APPEND,
 }	t_token_type;
 
-// Novo Enum para controlar aspas (Crucial para expansão de $) 
+// Novo Enum para controlar aspas (Crucial para expansão de $)
 // SINGLE - Nao expande / DOUBLE - Expande apenas $
 typedef enum e_quote
 {
@@ -35,6 +33,7 @@ typedef enum e_quote
 	DOUBLE,
 }	t_quote;
 
+/******STRUCTS DE PARSING ********/
 //Estrutura para a lista de tokens (Lexer)
 typedef struct s_token
 {
@@ -44,6 +43,7 @@ typedef struct s_token
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
+
 // Variavel de ambiente / key - nome / value - valor
 typedef struct s_env
 {
@@ -51,18 +51,28 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }	t_env;
-// Estrutura Principal de Comando (Parser -> Executor)
+
+/* ========================================================================== */
+/* STRUCTS DE EXECUÇÃO (Parser -> Executor)                                   */
+/* ========================================================================== */
+
+// NOVA STRUCT: Para lidar com múltiplos redirecionamentos (ls > a > b)
+typedef struct s_redir
+{
+    t_token_type    type;      // REDIR_IN, REDIR_OUT, APPEND ou HEREDOC
+    char            *file;     // Nome do arquivo ou Delimitador (se for heredoc)
+    struct s_redir  *next;
+}   t_redir;
+
 typedef struct s_cmd
 {
-	char			**args;
-	char			*cmd_path;
-	int				fd_in;
-	int				fd_out;
-	char			*heredoc_delim;
-	char			*infile_name;
-	char			*outfile_name;
-	struct s_cmd	*next;
-}	t_cmd;
+    char            **args;    // O comando e flags: {"ls", "-l", NULL}
+    t_redir         *redirs;   // Lista de arquivos para redirecionar
+
+    // Dados para o executor preencher (opcional no parser)
+    int             pid;       // ID do processo (útil para o waitpid)
+    struct s_cmd    *next;     // Próximo comando após o pipe
+}   t_cmd;
 
 // Centraliza tudo para facilitar a limpeza e acesso.
 typedef struct s_mini
