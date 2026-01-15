@@ -6,7 +6,7 @@
 /*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 08:15:12 by aletude-          #+#    #+#             */
-/*   Updated: 2026/01/13 10:54:31 by aletude-         ###   ########.fr       */
+/*   Updated: 2026/01/14 08:11:28 by aletude-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	update_quote_status(t_quote *quote, char c)
 		(*quote == DOUBLE && c == '\"'))
 		*quote = NONE;
 }
- 
+
 static int	handle_word(t_mini *mini, char *str)
 {
 	int		i;
@@ -93,7 +93,7 @@ int	tokenize_input(t_mini *mini, char *input)
 		while (is_whitespace(input[i]))
 			i++;
 		if (!input[i])
-			break ; 
+			break ;
 		if (is_operator(&input[i]))
 			ret = handle_operator(mini, &input[i]);
 		else
@@ -107,5 +107,3 @@ int	tokenize_input(t_mini *mini, char *input)
 	}
 	return (SUCCESS);
 }
-
-

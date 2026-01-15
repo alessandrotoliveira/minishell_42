@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 14:55:00 by aletude-          #+#    #+#             */
-/*   Updated: 2026/01/13 20:47:47 by alessandro       ###   ########.fr       */
+/*   Updated: 2026/01/14 08:07:57 by aletude-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,27 @@ typedef struct s_env
 /* ========================================================================== */
 
 // NOVA STRUCT: Para lidar com múltiplos redirecionamentos (ls > a > b)
+// type: REDIR_IN, REDIR_OUT, APPEND ou HEREDOC
+// file: Nome do arquivo ou delimitador (se for heredoc)
 typedef struct s_redir
 {
-    t_token_type    type;      // REDIR_IN, REDIR_OUT, APPEND ou HEREDOC
-    char            *file;     // Nome do arquivo ou Delimitador (se for heredoc)
-    struct s_redir  *next;
-}   t_redir;
+	t_token_type	type;
+	char			*file;
+	struct s_redir	*next;
+}	t_redir;
 
+//args: O comando e flags: {"ls", "-l", NULL}
+// redirs: Lista de arquivos para redirecionar
+// Dados para o executor preencher (opcional no parser)
+// pid: ID do processo (útil para o waitpid)
+//*next: Proximo comando após pipe
 typedef struct s_cmd
 {
-    char            **args;    // O comando e flags: {"ls", "-l", NULL}
-    t_redir         *redirs;   // Lista de arquivos para redirecionar
-
-    // Dados para o executor preencher (opcional no parser)
-    int             pid;       // ID do processo (útil para o waitpid)
-    struct s_cmd    *next;     // Próximo comando após o pipe
-}   t_cmd;
+	char			**args;
+	t_redir			*redirs;
+	int				pid;
+	struct s_cmd	*next;
+}	t_cmd;
 
 // Centraliza tudo para facilitar a limpeza e acesso.
 typedef struct s_mini

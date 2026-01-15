@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 15:07:16 by aletude-          #+#    #+#             */
-/*   Updated: 2026/01/13 21:49:30 by alessandro       ###   ########.fr       */
+/*   Updated: 2026/01/15 11:15:40 by aletude-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,16 @@
 # define RESET "\033[0m"
 
 // variavel global
-extern int g_signal_status;
+extern int	g_signal_status;
+
+//create_cmd_util.c
+t_cmd	*init_new_cmd(void);
+void	add_arg_to_cmd(t_cmd *cmd, char *arg);
+void	add_redir_to_cmd(t_cmd *cmd, t_token_type type, char *file_name);
+void	cmd_add_back(t_cmd **lst, t_cmd *new);
+
+//create_cmds.c
+void	create_commands(t_mini *mini);
 
 //token_list.c
 t_token	*new_token(char *content, t_token_type type, t_quote quote);
@@ -105,6 +114,5 @@ void	expand_variables(t_mini *mini);
 
 //quote_remover.c
 void	remove_quotes(t_mini *mini);
-
 
 #endif

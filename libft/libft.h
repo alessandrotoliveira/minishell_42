@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:14:29 by aletude-          #+#    #+#             */
-/*   Updated: 2025/10/02 12:57:49 by alessandro       ###   ########.fr       */
+/*   Updated: 2026/01/14 07:55:46 by aletude-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,5 @@ char			*get_next_line(int fd);
 size_t			ft_strleng(const char *str);
 char			*ft_strchrg(const char *s, int c);
 char			*ft_strjoing(char const *s1, char const *s2);
-
 
 #endif

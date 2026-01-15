@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
+#    By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/09 15:06:27 by aletude-          #+#    #+#              #
-#    Updated: 2026/01/13 22:13:59 by alessandro       ###   ########.fr        #
+#    Updated: 2026/01/15 11:16:55 by aletude-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ OBJ_DIR		=	objs
 SRC_FILES	= main.c \
 			env/env_init.c \
 			env/env_utils.c \
+			parser/create_cmd_utils.c \
 			parser/create_cmds.c \
 			parser/expander_utils.c \
 			parser/expander.c \

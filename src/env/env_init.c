@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 21:17:40 by alessandro        #+#    #+#             */
-/*   Updated: 2026/01/13 21:31:29 by alessandro       ###   ########.fr       */
+/*   Updated: 2026/01/14 08:09:07 by aletude-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	env_add_back(t_env **lst, t_env *new_node)
 	curr->next = new_node;
 }
 
-static void	process_env_string(t_env ** env_list, char *env_str)
+static void	process_env_string(t_env **env_list, char *env_str)
 {
 	int		i;
 	char	*key;

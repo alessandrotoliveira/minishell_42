@@ -6,7 +6,7 @@
 /*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 09:56:26 by aletude-          #+#    #+#             */
-/*   Updated: 2026/01/13 10:48:04 by aletude-         ###   ########.fr       */
+/*   Updated: 2026/01/14 08:11:50 by aletude-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	check_syntax(t_token *tokens)
 	t_token	*curr;
 
 	curr = tokens;
-
 	if (curr && curr->type == PIPE)
 	{
 		print_syntax_error("|");

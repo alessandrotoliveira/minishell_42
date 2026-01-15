@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 17:58:57 by alessandro        #+#    #+#             */
-/*   Updated: 2026/01/13 21:50:26 by alessandro       ###   ########.fr       */
+/*   Updated: 2026/01/14 08:12:26 by aletude-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ static void	process_token(t_mini *mini, t_token *curr)
 	while (curr->content[i])
 	{
 		if (curr->content[i] == '$' && curr->content[i + 1] != '\0'
-				&& curr->content[i + 1] != ' ')
-				handle_expansion(mini, curr, &i);
+			&& curr->content[i + 1] != ' ')
+			handle_expansion(mini, curr, &i);
 		i++;
 	}
 }
@@ -70,8 +70,8 @@ void	expand_variables(t_mini *mini)
 	while (curr)
 	{
 		if (curr->type == WORD && curr->quote != SINGLE
-				&& ft_strchr(curr->content, '$'))
-				process_token(mini, curr);
+			&& ft_strchr(curr->content, '$'))
+			process_token(mini, curr);
 		curr = curr->next;
 	}
 }

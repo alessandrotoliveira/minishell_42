@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_remover.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 19:53:22 by alessandro        #+#    #+#             */
-/*   Updated: 2026/01/13 20:07:05 by alessandro       ###   ########.fr       */
+/*   Updated: 2026/01/14 08:12:57 by aletude-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ static char	*remove_quotes_str(char *str)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if ((quote == NONE && (str[i] == '\'' || str[i] == '\"'))
-				|| (quote == SINGLE && str[i] == '\'')
-				|| (quote == DOUBLE && str[i] == '\"'))
-				change_quote_state(&quote, str[i]);
+			|| (quote == SINGLE && str[i] == '\'')
+			|| (quote == DOUBLE && str[i] == '\"'))
+			change_quote_state(&quote, str[i]);
 		else
 			new_str[j++] = str[i];
 		i++;

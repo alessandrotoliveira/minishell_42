@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_utils.c                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/13 21:38:33 by alessandro        #+#    #+#             */
-/*   Updated: 2026/01/14 08:09:39 by aletude-         ###   ########.fr       */
+/*   Created: 2026/01/14 09:03:13 by aletude-          #+#    #+#             */
+/*   Updated: 2026/01/14 10:52:44 by aletude-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_env_value(t_env *env_list, char *key)
+void	msg_error(char *msg)
 {
-	t_env	*curr;
-	size_t	len_key;
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(msg, 2);
+	ft_putstr_fd("\n", 2);
+}
 
-	curr = env_list;
-	len_key = ft_strlen(key);
-	while (curr)
-	{
-		if (ft_strncmp(curr->key, key, len_key) == 0
-			&& ft_strlen(curr->key) == len_key)
-			return (ft_strdup(curr->value));
-		curr = curr->next;
-	}
-	return (ft_strdup(""));
+void	cmd_error(char *cmd, char *msg)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("cmd", 2);
+	ft_putstr_fd(": ", 2);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:51:20 by alessandro        #+#    #+#             */
-/*   Updated: 2026/01/13 21:08:58 by alessandro       ###   ########.fr       */
+/*   Updated: 2026/01/14 08:14:42 by aletude-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	handle_sigint(int sig)
 {
 	(void)sig;
-
 	g_signal_status = 130;
 	write(STDOUT, "\n", 1);
 	rl_on_new_line();
@@ -23,21 +22,19 @@ static void	handle_sigint(int sig)
 	rl_redisplay();
 }
 
-void init_signals(void)
+void	init_signals(void)
 {
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
 
 	ft_memset(&sa_int, 0, sizeof(sa_int));
 	sa_int.sa_handler = &handle_sigint;
-	sa_int.sa_flags= 0;
+	sa_int.sa_flags = 0;
 	sigemptyset(&sa_int.sa_mask);
 	sigaction(SIGINT, &sa_int, NULL);
-
 	ft_memset(&sa_quit, 0, sizeof(sa_quit));
 	sa_quit.sa_handler = SIG_IGN;
 	sa_quit.sa_flags = 0;
 	sigemptyset(&sa_quit.sa_mask);
 	sigaction(SIGQUIT, &sa_quit, NULL);
-
 }
