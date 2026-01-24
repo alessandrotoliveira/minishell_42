@@ -1,0 +1,67 @@
+#include "minishell.h"
+
+static int	process_heredoc_redir(t_cmd *cmd, t_redir *redir)
+{
+	if (cmd->fd_in != STDIN_FILENO)
+		close(cmd->fd_in);
+	cmd->fd_in = create_heredoc_fd(redir->file);
+	if (cmd->fd_in < 0)
+		return (0);
+	return (1);
+}
+
+static int	process_cmd_redirs(t_cmd *cmd)
+{
+	t_redir	*redir;
+
+	redir = cmd->redirs;
+	while (redir)
+	{
+		if (redir->type == HEREDOC)
+		{
+			if (!process_heredoc_redir(cmd, redir))
+				return (0);
+		}
+		redir = redir->next;
+	}
+	return (1);
+}
+
+
+static int	count_heredoc_redirs(t_cmd *cmd)
+{
+	t_redir	*redir;
+	int		count;
+
+	count = 0;
+	redir = cmd->redirs;
+	while (redir)
+	{
+		if (redir->type == HEREDOC)
+			count++;
+		redir = redir->next;
+	}
+	return (count);
+}
+
+static int	has_heredoc_redirs(t_cmd *cmd)
+{
+	return (count_heredoc_redirs(cmd) > 0);
+}
+
+int	preprocess_heredocs(t_cmd *cmds)
+{
+	t_cmd	*cmd;
+
+	cmd = cmds;
+	while (cmd)
+	{
+		if (has_heredoc_redirs(cmd))
+		{
+			if (!process_cmd_redirs(cmd))
+				return (0);
+		}
+		cmd = cmd->next;
+	}
+	return (1);
+}
