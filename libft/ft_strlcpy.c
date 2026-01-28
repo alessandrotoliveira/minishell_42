@@ -3,31 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcheel-n <jcheel-n@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/18 10:57:19 by aletude-          #+#    #+#             */
-/*   Updated: 2025/07/31 10:05:00 by aletude-         ###   ########.fr       */
+/*   Created: 2022/01/13 18:29:30 by jcheel-n          #+#    #+#             */
+/*   Updated: 2022/02/07 20:25:25 by jcheel-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+size_t	ft_strlcpy(char *restrict dst, const char *restrict src, size_t dstsize)
 {
-	size_t	i;
-	size_t	j;
+	size_t	lensrc;	
 
-	i = 0;
-	j = 0;
-	while (src[j] != '\0')
-		j++;
-	if (size == 0)
-		return (j);
-	while (i < size -1 && src[i] != '\0')
+	lensrc = ft_strlen(src);
+	if (dstsize == 0)
+		return (lensrc);
+	else if (lensrc + 1 < dstsize)
+		ft_memcpy(dst, src, lensrc + 1);
+	else if (dstsize != 0)
 	{
-		dest[i] = src[i];
-		i++;
+		ft_memcpy(dst, src, dstsize - 1);
+		dst[dstsize - 1] = '\0';
 	}
-	dest[i] = '\0';
-	return (j);
+	return (lensrc);
 }

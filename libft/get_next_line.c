@@ -3,112 +3,95 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/12 12:51:29 by aletude-          #+#    #+#             */
-/*   Updated: 2025/10/02 12:55:13 by alessandro       ###   ########.fr       */
+/*   Created: 2022/03/18 13:37:13 by jcheel-n          #+#    #+#             */
+/*   Updated: 2026/01/28 15:04:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "get_next_line.h"
 
-char	*ft_update_stock(char *stock)
+static char	*returnstring(char	*recovery)
 {
-	int		i;
-	int		j;
-	char	*new_stock;
-
-	i = 0;
-	while (stock[i] && stock [i] != '\n')
-		i++;
-	if (!stock[i])
-	{
-		free(stock);
-		return (NULL);
-	}
-	new_stock = malloc(sizeof(char) * ft_strleng(stock) - i);
-	if (!new_stock)
-	{
-		free(new_stock);
-		return (NULL);
-	}
-	i++;
-	j = 0;
-	while (stock[i])
-		new_stock[j++] = stock[i++];
-	new_stock[j] = '\0';
-	free(stock);
-	return (new_stock);
-}
-
-char	*ft_extract_line(char *stock)
-{
-	int		i;
 	char	*line;
+	int		i;
 
-	if (!stock || !*stock)
-		return (NULL);
 	i = 0;
-	while (stock[i] && stock[i] != '\n')
-		i++;
-	line = malloc(i + (stock[i] == '\n') + 1);
-	if (!line)
-		return (NULL);
-	i = 0;
-	while (stock[i] && stock [i] != '\n')
+	if (recovery)
 	{
-		line[i] = stock[i];
-		i++;
+		while (recovery && recovery[i] != '\n')
+			i++;
+		line = ft_substrfree(recovery, 0, i + 1, 0);
+		return (line);
 	}
-	if (stock[i] == '\n')
-		line [i++] = '\n';
-	line[i] = '\0';
-	return (line);
+	return (NULL);
 }
 
-char	*ft_read_and_stock(int fd, char *stock)
+static char	*staticret(char	*recovery)
 {
-	char	*buffer;
-	char	*temp;
-	int		bytes_read;
+	size_t	i;
 
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (free(stock), NULL);
-	bytes_read = 1;
-	while (!ft_strchrg(stock, '\n') && bytes_read > 0)
+	i = 0;
+	if (ft_strchr(recovery, '\n'))
+		while (recovery && recovery[i] != '\n')
+			i++;
+	if (!recovery[i + 1])
 	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read < 0)
-			return (free(stock), free(buffer), NULL);
-		if (bytes_read == 0)
-			break ;
-		buffer[bytes_read] = '\0';
-		temp = ft_strjoing(stock, buffer);
-		free(stock);
-		stock = temp;
-	}
-	free(buffer);
-	if (bytes_read < 0 || (bytes_read == 0 && !stock))
+		free(recovery);
 		return (NULL);
-	return (stock);
+	}
+	recovery = ft_substrfree(recovery, i + 1, ft_strlen(recovery) - i, 1);
+	return (recovery);
+}
+
+static char	*reader(int fd, char *recovery)
+{
+	int		ret;
+	char	*buf;
+
+	ret = 1;
+	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf)
+		return (NULL);
+	buf[0] = '\0';
+	while (ret > 0 && !ft_strchr(buf, '\n'))
+	{
+		ret = read(fd, buf, BUFFER_SIZE);
+		if (ret > 0)
+		{
+			buf[ret] = '\0';
+			recovery = ft_strjoinfree(recovery, buf);
+		}
+	}
+	free(buf);
+	if (ret < 0)
+	{
+		free(recovery);
+		return (NULL);
+	}
+	return (recovery);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*stock;
-	char		*line;
+	static char		*recovery = NULL;
+	char			*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > 255 || !BUFFER_SIZE)
 		return (NULL);
-	stock = ft_read_and_stock(fd, stock);
-	if (!stock || stock[0] == '\0')
+	if (!recovery || !ft_strchr(recovery, '\n'))
+		recovery = reader(fd, recovery);
+	if (recovery == NULL)
+		return (NULL);
+	if (ft_strchr(recovery, '\n'))
 	{
-		free(stock);
-		stock = NULL;
-		return (NULL);
+		line = returnstring(recovery);
+		recovery = staticret(recovery);
+		return (line);
 	}
-	line = ft_extract_line(stock);
-	stock = ft_update_stock(stock);
+	line = recovery;
+	recovery = NULL;
 	return (line);
 }
