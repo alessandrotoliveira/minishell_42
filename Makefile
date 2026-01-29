@@ -21,7 +21,7 @@ LIBFT		= $(LIBFT_DIR)/libft.a
 PARSER_SRCS	= src/parser/create_cmd_utils.c src/parser/create_cmds.c src/parser/expander_utils.c \
 			  src/parser/expander.c src/parser/lexer_utils.c src/parser/lexer.c \
 			  src/parser/parser_manager.c src/parser/quote_remover.c src/parser/syntax.c \
-			  src/parser/token_list.c src/parser/word_split.c
+			  src/parser/token_list.c src/parser/word_split.c src/parser/word_split_utils.c
 
 PIPELINE_SRCS = src/executor/pipeline/executor_main.c src/executor/pipeline/executor_utils.c \
 			    src/executor/pipeline/exec_pipeline.c src/executor/pipeline/free_utils.c \
@@ -30,7 +30,8 @@ PIPELINE_SRCS = src/executor/pipeline/executor_main.c src/executor/pipeline/exec
 REDIR_SRCS	= src/executor/redirection/redirection.c src/executor/redirection/handle_redir.c \
 			  src/executor/redirection/heredocs_utils.c src/executor/redirection/heredocs_files.c \
 			  src/executor/redirection/heredocs_create.c src/executor/redirection/heredocs_process.c \
-			  src/executor/redirection/heredocs_cleanup.c src/executor/redirection/redir_validation.c
+			  src/executor/redirection/heredocs_cleanup.c src/executor/redirection/redir_validation.c \
+			  src/executor/redirection/heredocs_utils2.c
 
 BUILTIN_SRCS = src/executor/builtins/builtin_cd.c src/executor/builtins/builtin_echo.c \
 			  src/executor/builtins/builtin_env.c src/executor/builtins/builtin_exit.c \

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static char	*append_char_to_str(char *str, char c)
+char	*append_char_to_str(char *str, char c)
 {
 	char	*new_str;
 	int		len;
@@ -39,7 +39,7 @@ static char	*append_char_to_str(char *str, char c)
 	return (new_str);
 }
 
-static char	*process_var_expansion(char *result,
+char	*process_var_expansion(char *result,
 						char *line, int *i, t_mini *mini)
 {
 	int		len;
@@ -61,7 +61,7 @@ static char	*process_var_expansion(char *result,
 	return (result);
 }
 
-static char	*expand_line_vars(char *line, t_mini *mini)
+char	*expand_line_vars(char *line, t_mini *mini)
 {
 	char	*result;
 	int		i;
@@ -85,7 +85,7 @@ static char	*expand_line_vars(char *line, t_mini *mini)
 
 /* ================= RAW INPUT ================= */
 
-static char	*grow_buffer(char *old, size_t old_len)
+char	*grow_buffer(char *old, size_t old_len)
 {
 	char	*new;
 	size_t	i;
@@ -107,7 +107,7 @@ static char	*grow_buffer(char *old, size_t old_len)
 	return (new);
 }
 
-static char	*append_char(char *line, size_t *len, char c)
+char	*append_char(char *line, size_t *len, char c)
 {
 	char	*new_line;
 
@@ -118,71 +118,4 @@ static char	*append_char(char *line, size_t *len, char c)
 	(*len)++;
 	new_line[*len] = '\0';
 	return (new_line);
-}
-
-static int	read_single_char(char *buffer)
-{
-	ssize_t	r;
-
-	r = read(STDIN_FILENO, buffer, 1);
-	return (r);
-}
-
-char	*read_heredoc_line(void)
-{
-	char	buffer;
-	char	*line;
-	size_t	len;
-
-	line = NULL;
-	len = 0;
-	while (g_received_signal != SIGINT)
-	{
-		if (read_single_char(&buffer) <= 0)
-			return (free(line), NULL);
-		if (buffer == '\n')
-			return (line);
-		line = append_char(line, &len, buffer);
-		if (!line)
-			return (NULL);
-	}
-	free(line);
-	return (NULL);
-}
-
-static void	write_heredoc_line(int fd, char *line, int expand, t_mini *mini)
-{
-	char	*expanded;
-
-	if (expand)
-	{
-		expanded = expand_line_vars(line, mini);
-		ft_putendl_fd(expanded, fd);
-		free(expanded);
-	}
-	else
-		ft_putendl_fd(line, fd);
-}
-
-int	write_heredoc_loop(int fd, char *delimiter, int expand, t_mini *mini)
-{
-	char	*line;
-
-	while (g_received_signal != SIGINT)
-	{
-		write(STDOUT_FILENO, "> ", 2);
-		line = read_heredoc_line();
-		if (g_received_signal == SIGINT)
-			break ;
-		if (!line)
-			return (0);
-		if (ft_strcmp(line, delimiter) == 0)
-		{
-			free(line);
-			return (0);
-		}
-		write_heredoc_line(fd, line, expand, mini);
-		free(line);
-	}
-	return (1);
 }

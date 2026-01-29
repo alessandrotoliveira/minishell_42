@@ -6,7 +6,7 @@
 /*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 07:20:05 by aletude-          #+#    #+#             */
-/*   Updated: 2026/01/29 08:17:53 by aletude-         ###   ########.fr       */
+/*   Updated: 2026/01/29 09:25:34 by aletude-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ int		get_var_len(char *str);
 char	*get_token_value(t_mini *mini, char *var_name);
 int		is_whitespace(char c);
 int		is_operator(char *str);
+int		count_words(char *str);
+char	**split_by_spaces(char *str);
+void	link_tokens(t_token *prev, t_token *new_tok, t_token **head);
+void	insert_split_tokens(t_token **head, t_token *curr, char **words);
+void	remove_empty_token(t_mini *mini, t_token *curr);
 
 /* --- Command Management --- */
 void	create_commands(t_mini *mini);
@@ -100,6 +105,16 @@ void	print_cmd_not_found(char *cmd);
 void	try_exec_as_shell_script(char *path, t_cmd *cmd, char **env_array);
 void	handle_execve_error(char *path, char **paths, char **env_array);
 void	check_path_and_exit(char *path, char **paths, char **env_array);
+char	*append_char_to_str(char *str, char c);
+char	*process_var_expansion(char *result,
+			char *line, int *i, t_mini *mini);
+char	*expand_line_vars(char *line, t_mini *mini);
+char	*grow_buffer(char *old, size_t old_len);
+char	*append_char(char *line, size_t *len, char c);
+int		read_single_char(char *buffer);
+char	*read_heredoc_line(void);
+void	write_heredoc_line(int fd, char *line, int expand, t_mini *mini);
+int		write_heredoc_loop(int fd, char *delimiter, int expand, t_mini *mini);
 
 /* --- Builtins --- */
 int		is_builtin(char *cmd_name);
