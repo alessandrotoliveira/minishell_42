@@ -107,7 +107,6 @@ static char	*grow_buffer(char *old, size_t old_len)
 	return (new);
 }
 
-
 static char	*append_char(char *line, size_t *len, char c)
 {
 	char	*new_line;
@@ -120,7 +119,6 @@ static char	*append_char(char *line, size_t *len, char c)
 	new_line[*len] = '\0';
 	return (new_line);
 }
-
 
 static int	read_single_char(char *buffer)
 {

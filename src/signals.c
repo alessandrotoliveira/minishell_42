@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bnanque <bnanque@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:51:20 by alessandro        #+#    #+#             */
-/*   Updated: 2026/01/26 13:57:09 by bnanque          ###   ########.fr       */
+/*   Updated: 2026/01/29 08:16:41 by aletude-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-volatile sig_atomic_t g_received_signal = 0;
+volatile sig_atomic_t	g_received_signal = 0;
 
 static void	handle_sigint(int sig)
 {
@@ -40,7 +40,6 @@ void	init_signals(void)
 	sa_int.sa_flags = 0;
 	sigemptyset(&sa_int.sa_mask);
 	sigaction(SIGINT, &sa_int, NULL);
-
 	ft_memset(&sa_quit, 0, sizeof(sa_quit));
 	sa_quit.sa_handler = SIG_IGN;
 	sa_quit.sa_flags = 0;

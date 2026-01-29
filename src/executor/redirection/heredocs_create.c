@@ -39,7 +39,6 @@ static int	process_cmd_redirs(t_cmd *cmd, t_mini *mini)
 	return (1);
 }
 
-
 static int	count_heredoc_redirs(t_cmd *cmd)
 {
 	t_redir	*redir;

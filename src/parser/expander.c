@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 17:58:57 by alessandro        #+#    #+#             */
-/*   Updated: 2026/01/25 21:41:09 by marvin           ###   ########.fr       */
+/*   Updated: 2026/01/29 08:13:52 by aletude-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,3 @@ void	expand_variables(t_mini *mini)
 		curr = curr->next;
 	}
 }
-

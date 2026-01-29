@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
 int	builtin_pwd(t_cmd *cmd)
@@ -18,8 +17,6 @@ int	builtin_pwd(t_cmd *cmd)
 	char	cwd[1024];
 
 	(void)cmd;
-
-
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
 		perror("minishell: pwd");
@@ -28,4 +25,3 @@ int	builtin_pwd(t_cmd *cmd)
 	ft_putendl_fd(cwd, STDOUT_FILENO);
 	return (0);
 }
-

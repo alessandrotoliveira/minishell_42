@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
-
 
 static int	is_out_of_range(const char *str)
 {

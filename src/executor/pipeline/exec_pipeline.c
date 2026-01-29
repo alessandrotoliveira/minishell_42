@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 09:11:26 by aletude-          #+#    #+#             */
-/*   Updated: 2026/01/29 00:51:54 by marvin           ###   ########.fr       */
+/*   Updated: 2026/01/29 08:07:01 by aletude-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static void	update_parent_fds(t_cmd *c, int *prev_fd, int *pipefd)
 	if (c->fd_out != -1)
 		close(c->fd_out);
 }
-
 
 void	execute_pipeline(t_mini *mini)
 {

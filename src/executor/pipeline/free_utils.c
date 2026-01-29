@@ -28,13 +28,9 @@ void	clean_and_exit(t_mini *mini, int exit_code)
 {
 	if (mini->env_list)
 		free_env_list(mini->env_list);
-
 	if (mini->cmd_list)
 		free_commands(mini->cmd_list);
-
 	rl_clear_history();
-
-
 	exit(exit_code);
 }
 

@@ -53,7 +53,6 @@ void	env_set(t_env **env_list, const char *key, const char *value)
 		curr->next = env_new_node(key, value);
 }
 
-
 void	env_unset(t_env **env_list, const char *key)
 {
 	t_env	*current;
@@ -61,7 +60,6 @@ void	env_unset(t_env **env_list, const char *key)
 
 	prev = NULL;
 	current = *env_list;
-
 	while (current)
 	{
 		if (ft_strcmp(current->key, key) == 0)

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
 static void	update_env_dirs(t_mini *mini, char *new_path)

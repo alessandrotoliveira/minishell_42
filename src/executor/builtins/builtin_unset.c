@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
 static void	remove_env_node(t_env **env_list, char *key)
@@ -62,4 +61,3 @@ int	builtin_unset(t_cmd *cmd, t_mini *mini)
 	}
 	return (exit_code);
 }
-

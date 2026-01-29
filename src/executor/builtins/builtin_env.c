@@ -10,16 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
-
 
 int	builtin_env(t_cmd *cmd, t_mini *mini)
 {
 	t_env	*current;
 
 	(void)cmd;
-
 	current = mini->env_list;
 	while (current)
 	{
