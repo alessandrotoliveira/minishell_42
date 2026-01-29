@@ -12,6 +12,20 @@
 
 #include "minishell.h"
 
+static void	free_redirs(t_redir *redirs)
+{
+	t_redir	*tmp;
+
+	while (redirs)
+	{
+		tmp = redirs->next;
+		if (redirs->file)
+			free(redirs->file);
+		free(redirs);
+		redirs = tmp;
+	}
+}
+
 void	free_commands(t_cmd *cmd)
 {
 	t_cmd	*tmp;
@@ -19,6 +33,14 @@ void	free_commands(t_cmd *cmd)
 	while (cmd)
 	{
 		tmp = cmd->next;
+		if (cmd->args)
+			free_array(cmd->args);
+		if (cmd->redirs)
+			free_redirs(cmd->redirs);
+		if (cmd->fd_in != -1 && cmd->fd_in != STDIN_FILENO)
+			close(cmd->fd_in);
+		if (cmd->fd_out != -1 && cmd->fd_out != STDOUT_FILENO)
+			close(cmd->fd_out);
 		free(cmd);
 		cmd = tmp;
 	}
@@ -30,6 +52,8 @@ void	clean_and_exit(t_mini *mini, int exit_code)
 		free_env_list(mini->env_list);
 	if (mini->cmd_list)
 		free_commands(mini->cmd_list);
+	if (mini->tokens)
+		free_tokens(&mini->tokens);
 	rl_clear_history();
 	exit(exit_code);
 }

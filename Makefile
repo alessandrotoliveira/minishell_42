@@ -40,7 +40,7 @@ BUILTIN_SRCS = src/executor/builtins/builtin_cd.c src/executor/builtins/builtin_
 
 ENV_SRCS	= src/executor/env/env_init.c src/executor/env/env_management.c src/executor/env/env_utils.c
 
-SRCS		= src/main.c src/signals.c src/utils/cleanup.c src/utils/error.c \
+SRCS		= src/main.c src/signals.c src/utils/cleanup.c \
 			  $(PARSER_SRCS) $(PIPELINE_SRCS) $(REDIR_SRCS) $(BUILTIN_SRCS) $(ENV_SRCS)
 
 OBJ_DIR		= objs
