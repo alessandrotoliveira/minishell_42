@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substrfree.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheel-n <jcheel-n@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/30 16:22:20 by jcheel-n          #+#    #+#             */
-/*   Updated: 2022/09/30 16:22:23 by jcheel-n         ###   ########.fr       */
+/*   Created: 2026/01/29 10:56:35 by aletude-          #+#    #+#             */
+/*   Updated: 2026/01/29 10:56:37 by aletude-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 char	*ft_substrfree(char const *s, unsigned int start, size_t len,
