@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_manager.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bnanque <bnanque@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 07:21:08 by aletude-          #+#    #+#             */
-/*   Updated: 2026/01/26 13:54:52 by bnanque          ###   ########.fr       */
+/*   Updated: 2026/01/29 00:18:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ int	parse_input(t_mini *mini, char *input)
 	if (check_syntax(mini->tokens) == ERROR)
 		return (parse_error(mini));
 	process_tokens(mini);
+	if (mini->tokens == NULL)
+	{
+		mini->exit_code = 0;
+		return (SUCCESS);
+	}
 	create_commands(mini);
 	free_tokens(&mini->tokens);
 	return (SUCCESS);
