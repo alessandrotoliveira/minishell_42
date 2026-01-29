@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bnanque <bnanque@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aletude- <aletude-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 07:20:05 by aletude-          #+#    #+#             */
-/*   Updated: 2026/01/27 15:59:00 by bnanque          ###   ########.fr       */
+/*   Updated: 2026/01/29 08:17:53 by aletude-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# define _GNU_SOURCE
 
 # include "struct.h"
 # include "../libft/libft.h"
