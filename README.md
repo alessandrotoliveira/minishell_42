@@ -1,4 +1,7 @@
 # 🐚 Minishell - @42São Paulo
+![42 Badge](https://img.shields.io/badge/Score-93%2F100-success?style=for-the-badge&logo=42)
+![Language](https://img.shields.io/badge/Language-C-blue?style=for-the-badge&logo=c)
+![Norminette](https://img.shields.io/badge/Norminette-Passing-brightgreen?style=for-the-badge)
 
 ## 📝 Sobre o Projeto
 O **Minishell** é um dos projetos mais desafiadores do currículo inicial da 42. O objetivo é criar um shell simples, mas funcional, replicando o comportamento do Bash. O foco está no gerenciamento de processos, manipulação de descritores de arquivo (file descriptors), parsing de comandos e execução de built-ins.
