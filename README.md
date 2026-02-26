@@ -32,8 +32,52 @@ O shell suporta as seguintes operações:
 * **Linguagem:** C
 * **Principais Funções:** `fork`, `execve`, `waitpid`, `pipe`, `dup2`, `sigaction`.
 * **Gerenciamento de Memória:** Tratamento rigoroso de memory leaks (uso de `valgrind`).
-* **Arquitetura:** Divisão entre *Lexer* (tokenização), *Parser* (análise sintática) e *Executor*.
+---
 
+## 🏗️ Arquitetura do Projeto
+
+O Minishell funciona através de um loop contínuo (Read-Eval-Print Loop - REPL) seguindo este fluxo:
+
+### 🔄 Ciclo de Vida de um Comando
+
+1.  **Readline**: Captura a entrada do usuário e adiciona ao histórico.
+2.  **Lexer (Tokenização)**: Divide a string de entrada em "tokens" (palavras, operadores como `|`, `<`, `>`).
+3.  **Parser (Análise Sintática)**: Organiza os tokens em uma estrutura de dados (geralmente uma lista ligada de comandos), identificando comandos, argumentos e redirecionamentos.
+4.  **Expansor**: Substitui variáveis de ambiente (ex: `$USER`) e trata as aspas (`'` e `"`).
+5.  **Executor**:
+    * Cria *pipes* se necessário.
+    * Faz o `fork()` para comandos externos.
+    * Redireciona entrada/saída (`dup2`).
+    * Executa built-ins ou busca o binário no `PATH`.
+6.  **Cleanup**: Limpa a memória alocada e aguarda o próximo comando.
+
+### 🗺️ Fluxograma Visual
+
+```text
+       [ ENTRADA DO USUÁRIO ]
+                |
+                v
+      +--------------------+
+      |       LEXER        |  --> Divide em tokens (palavras, pipes, redirs)
+      +--------------------+
+                |
+                v
+      +--------------------+
+      |       PARSER       |  --> Cria a estrutura de comandos
+      +--------------------+
+                |
+                v
+      +--------------------+
+      |     EXPANSOR       |  --> Resolve $VAR e retira aspas
+      +--------------------+
+                |
+                v
+      +--------------------+
+      |     EXECUTOR       |  --> Fork, Pipes, Redirs e Execve
+      +--------------------+
+                |
+                v
+       [ RETORNO AO PROMPT ]
 ---
 
 ## 🚀 Como Executar
